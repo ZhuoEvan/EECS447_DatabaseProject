@@ -1,10 +1,11 @@
-<!-- SECTION 1 --
- - ================================================ -
+<!--- SECTION 1 ---
+ - ============================================================ -
  - File Name: project.html
  - 
- - Creation Date: 03/31/2026                        -
- - Last Modification Date: 03/31/2026               -
- - ================================================ -->
+ - Creation Date: 03/31/2026                                    -
+ - Last Modification Date: 03/31/2026                           -
+ - ============================================================ - 
+ -->
 
  <!doctype html>
  <html>
@@ -14,11 +15,10 @@
     </header>
 
     <body>
-        <div id="login">
-            <p> Login </p>
-            Username: <input type="text"> <br>
-            Password: <input type="password">
-        </div>
+        <form action="database_connect.php" method="POST">
+            <input type="text" id="ok" name="ok">
+            <button type="submit">submit</button> 
+        </form>
 
     </body>
  </html>
