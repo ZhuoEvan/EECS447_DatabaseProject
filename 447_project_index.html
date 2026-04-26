@@ -12,13 +12,14 @@
 
 <!--
  * ===[ SECTION 02 ]=================================== *
- * HTML Header                                          *
+ * HTML Head                                            *
  * ==================================================== */ 
 -->
 
-<header>
-    <h1> HTML to PHP </h1>
-</header>
+<head>
+    <title>Database Project</title>
+    <link rel="stylesheet" href="447_project_style.css">
+</head>
 
 <!--
  * ===[ SECTION 03 ]=================================== *
@@ -27,11 +28,48 @@
 -->
 
 <body>
-    <form action="447_project_php.php" method="POST">
-        <label for="name">Name:</label>
-        <input type="text" name="user_name" id="name" required>
-        <button type="submit">Submit</button>
-    </form>
+    <header>
+        <h1>Title</h1>
+    </header>
+
+    <div id="main-container" name="MainContainer">
+    <!-- Button Container -->
+    <div id="left-sidebar" name="QueryContainer">
+        <button onclick="changeText('Home')">QueryType1</button>
+        <button onclick="changeText('Setting')">QueryType2</button>
+        <button onclick="changeText('Home')">QueryType3</button>
+        <button onclick="changeText('Home')">QueryType4</button>
+        <button onclick="changeText('Home')">QueryType5</button>
+    </div>
+
+    <!-- Center Container -->
+    <div id="center" name="InputContainer">
+        <p id="content-title">Here</p>
+        <p id="content-body">NotHere</p>
+    </div>
+
+    <!-- Filler Container -->
+    <div id="right-sidebar" name="FillerContainer"></div>
+
+    </div>
+
+    <!--
+    * ===[ SECTION 04 ]=================================== *
+    * HTML JavaScript                                      *
+    * ==================================================== */ 
+    -->
+    <script>
+        function changeText(type) {
+            const title = document.getElementById('content-title');
+            const body = document.getElementById('content-body');
+            
+            title.innerText = type;
+            body.innerText = "The content was updated via the " + type + " button.";
+        }
+    </script>
+    <!-- <form action="447_project_php.php" method="GET">
+        <button type="submit">View Residents</button>
+    </form> -->
 
 </body>
 

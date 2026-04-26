@@ -30,7 +30,7 @@ echo('success');
  * ==================================================== */
 
 //Send SQL Query
-$query = 'SELECT * FROM CRUISE'; //change this to be dynamic
+$query = 'SELECT * FROM Resident';
 $result = $CONNECTION -> query($query);
 
 
@@ -46,12 +46,14 @@ while ($line = $result->fetch_assoc()) {
          echo "\t\t<td>$col_value</td>\n";
     }
     echo "\t</tr>\n";
-    }
+}
 echo "</table>\n";
 
-     echo "Number of fields: ".mysql_num_fields($result)."<br>";
-     echo "Number of records: ".mysql_num_rows($result)."<br>";
+echo "Number of fields: " . $result->field_count ."<br>";
+echo "Number of records: " . $result->num_rows ."<br>";
 
+//Return to HTML
+echo "<br><a href='447_project_index.html'>Back to Main Page</a>";
 
 //Close Connection
 $CONNECTION->close();

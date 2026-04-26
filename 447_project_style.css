@@ -1,0 +1,68 @@
+/* ===[ SECTION 01 ]=================================== *
+ * File Name: 447_project_style.css                     *
+ * Description: PHP of EECS 447 Project                 *
+ * Creation Date: 04/25/2026                            *
+ * Last Modification Date: 04/25/2026                   *
+ * ==================================================== */
+
+/* Entire HTML Style */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+
+/* ===[ SECTION 02 ]=================================== *
+ * CSS Header Style                                     *
+ * ==================================================== */
+
+header {
+    background-color: blue;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+
+/* ===[ SECTION 03 ]=================================== *
+ * CSS Button Container Style                           *
+ * ==================================================== */
+
+#main-container {
+    display: flex;
+    min-width: 100vh;
+}
+
+#left-sidebar {
+    display: flex;
+    flex: 1;
+    flex-direction: column; 
+    height: 100vh;           
+    gap: 10px;
+    padding: 20px;              
+    border-right: 1px solid #ccc;
+    background-color: lavender;
+}
+
+#left-sidebar button {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    text-align: left;
+}
+
+/* ===[ SECTION 04 ]=================================== *
+ * CSS Center Style                                     *
+ * ==================================================== */
+
+#center {
+    flex: 3;
+    text-align: center;
+}
+
+#right-sidebar {
+    flex: 1;
+    padding: 20px;
+}
