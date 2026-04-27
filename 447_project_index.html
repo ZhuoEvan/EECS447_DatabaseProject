@@ -3,7 +3,7 @@
  * File Name: 447_project_index.html                    *
  * Description: HTML of EECS 447 Project                *
  * Creation Date: 04/25/2026                            *
- * Last Modification Date: 04/25/2026                   *
+ * Last Modification Date: 04/26/2026                   *
  * ==================================================== */ 
 -->
 
@@ -29,23 +29,23 @@
 
 <body>
     <header>
-        <h1>Title</h1>
+        <h1>Neighborhood Information Database</h1>
     </header>
 
     <div id="main-container" name="MainContainer">
     <!-- Button Container -->
     <div id="left-sidebar" name="QueryContainer">
-        <button onclick="changeText('Home')">QueryType1</button>
-        <button onclick="changeText('Setting')">QueryType2</button>
-        <button onclick="changeText('Home')">QueryType3</button>
-        <button onclick="changeText('Home')">QueryType4</button>
-        <button onclick="changeText('Home')">QueryType5</button>
+        <button onclick="read_button('query1')">Lookup All House Addresses by Neighborhood Name</button>
+        <button onclick="read_button('query2')">Lookup All Residents by Neighborhood Name</button>
+        <button onclick="read_button('query3')">Lookup All Crimes by Neighborhood Name</button>
+        <button onclick="read_button('query4')">Lookup Neighborhood by House Address Number</button>
+        <button onclick="read_button('query5')">Lookup House Owner by House Address Number</button>
     </div>
 
     <!-- Center Container -->
     <div id="center" name="InputContainer">
-        <p id="content-title">Here</p>
-        <p id="content-body">NotHere</p>
+        <p id="content-title">No Selection</p>
+        <p id="content-body">Start a database search by selecting an option on the left sidebar.</p>
     </div>
 
     <!-- Filler Container -->
@@ -59,18 +59,91 @@
     * ==================================================== */ 
     -->
     <script>
-        function changeText(type) {
-            const title = document.getElementById('content-title');
-            const body = document.getElementById('content-body');
-            
-            title.innerText = type;
-            body.innerText = "The content was updated via the " + type + " button.";
+
+        //Change Title Function
+        function change_title(TITLE) {
+            let CENTER_TITLE = document.getElementById("content-title");
+            CENTER_TITLE.innerHTML = TITLE;
+            return;
         }
+
+        //Build Input Container Function
+        function build_input(KEY, PLACEHOLDER_TEXT) {
+                //Create HTML Form Element
+                let container = document.createElement("form");
+                container.setAttribute("action", "447_project_php.php");
+                container.setAttribute("method", "POST");
+                
+                //Declare Input Property
+                let input_element = document.createElement("input");
+                input_element.type = "text";
+                input_element.placeholder = PLACEHOLDER_TEXT;
+                input_element.id = "user_input";
+
+                //Declare Input for Key
+                let input_key = document.createElement("input");
+                input_key.type = "hidden";
+                input_key.name = "query_key";
+                input_key.value = KEY;
+
+                //Declare Submit Button Property
+                let button_element = document.createElement("button");
+                button_element.type = "submit";
+                button_element.textContent = "Search";
+
+                //Merge Elements Together
+                container.appendChild(input_element);
+                container.appendChild(input_key);
+                container.appendChild(button_element);
+
+                return container; //SELECT * FROM NEIGHORHOOD N, HOUSE H WHERE N.AddressNum = H.AddressNum;
+        }
+
+        //Clear Center Content Function
+        function clear_center(CENTER_CONTENT) {
+            let input_id_select = document.getElementById("user_input");
+            CENTER_CONTENT.innerHTML = "";
+            if (input_id_select) input_id_select.remove();
+            return;
+        }
+
+        //Read Button Input Function
+        function read_button(KEY) {
+            //Local Variable
+            let CENTER_CONTENT = document.getElementById("content-body");
+
+            //Query Switch
+            switch(KEY) {
+                case "query1":
+                    change_title("Search All Houses in Neighborhood");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Neighborhood Name"));
+                    break;
+                case "query2":
+                    change_title("Search All Residents in Neighborhood");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Neighborhood Name"));
+                    break;
+                case "query3":
+                    change_title("Search All Crime in Neighborhood");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Neighborhood Name"));
+                    break;
+                case "query4":
+                    change_title("Search For a Neighborhood With House Address Number");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Residential Address Number"));
+                    break;
+                case "query5":
+                    change_title("Search House Owner With House Address Number");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Residential Address Number"));
+                    break;
+            }
+            return;
+        }
+
     </script>
-    <!-- <form action="447_project_php.php" method="GET">
-        <button type="submit">View Residents</button>
-    </form> -->
 
 </body>
-
 </html>
