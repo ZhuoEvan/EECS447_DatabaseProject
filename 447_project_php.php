@@ -31,6 +31,9 @@
     <h1>Neighborhood Information Database</h1>
     </header>
 
+<div id=php_section 
+ style=
+ "padding: 25px;">
 <!-- 
 /* ===[ SECTION 03 ]=================================== *
  * PHP Connection                                       *
@@ -50,7 +53,7 @@ $CONNECTION = new mysqli($WEB_ADDRESS, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
 //Connection Check
 if ($CONNECTION ->connect_error)
     die('Could not connect: ' . $CONNECTION->connect_error);
-echo('success');
+echo("Successful Connection<br><br>");
 
 
 /* ===[ SECTION 04 ]=================================== *
@@ -65,25 +68,53 @@ $search_value = $_POST['user_search'];
 $query = "";
 
 //Query Switch
-switch($KEY) {
+switch($Q_KEY) {
     case "query1":
-        $query = "";
+        $query = "SELECT DISTINCT h.AddressNumber, h.Street FROM Neighborhood n, House h 
+                  WHERE n.Name = \"" . $search_value . "\"
+                  AND n.Name = h.NeighborhoodName;";
+        echo("Showing<br>+Address Number<br>+Street<br>");
         break;
     case "query2":
-        $query = "";
+        $query = "SELECT r.FirstName, r.LastName FROM Neighborhood n, House h, Resident r
+                  WHERE n.Name = \"" . $search_value . "\" 
+                  AND n.Name = h.NeighborhoodName
+                  AND h.AddressNumber = r.AddressNumber;";
+        echo("Showing<br>+First Name<br>+Last Name<br>");
         break;
     case "query3":
-        $query = "";
+        $query = "SELECT c.CrimeType, c.CrimeTime, c.Status, h.AddressNumber, h.Street, o.InsideOutside
+                  FROM Neighborhood n, House h, Resident r, Occurs o, Crime c
+                  WHERE n.Name = \"" . $search_value . "\" 
+                  AND n.Name = h.NeighborhoodName
+                  AND h.AddressNumber = o.AddressNumber
+                  AND o.CrimeTime = c.CrimeTime
+                  AND c.ResidentSSN = r.SSN;";
+        echo("Showing<br>+Crime Type<br>+Crime Time<br>+Crime Status<br>+Affected Address Number<br>+Street<br>+Location<br>");
         break;
     case "query4":
-        $query = "";
+        $query = "SELECT n.Name, n.ZipCode FROM Neighborhood n, House h
+                  WHERE h.AddressNumber = \"" . $search_value . "\" 
+                  AND h.ZipCode = n.ZipCode
+                  AND h.NeighborhoodName = n.Name;";
+        echo("Showing<br>+Neighborhood Name<br>+Zip Code<br>");
         break;
     case "query5":
-        $query = "";
+        $query = "SELECT r.FirstName, r.LastName, r.DateOfBirth FROM House h, Resident r
+                  WHERE h.AddressNumber = \"" . $search_value . "\" 
+                  AND h.AddressNumber = r.AddressNumber;";
+        echo("Showing<br>+First Name<br>+Last Name<br>+Date of Birth<br>");
+        break;
+    case "query6":
+        $query = "SELECT DISTINCT r.LastName, h.Street, h.LotSize, h.NumBedrooms FROM House h, Resident r
+                  WHERE h.AddressNumber = \"" . $search_value . "\" 
+                  AND h.AddressNumber = r.AddressNumber;";
+        echo("Showing<br>+Owner's Last Name<br>+Street<br>+Lot Size<br>+Number of Bedrooms<br>");
         break;
 }
 
 //Search for Query Results
+// echo("$query"); //Troubleshoot Echo
 $result = $CONNECTION -> query($query);
 
 
@@ -91,19 +122,22 @@ $result = $CONNECTION -> query($query);
  * PHP SQL Result                                       *
  * ==================================================== */
 
-// Print results in HTML
-echo "<table>\n";
-while ($line = $result->fetch_assoc()) {
-    echo "\t<tr>\n";
-    foreach ($line as $col_value) {
-         echo "\t\t<td>$col_value</td>\n";
+//Check if Query Results Exist
+if ($result->num_rows > 0) {
+    echo "<table border='1'>";
+    
+    //Output data of each row
+    while($line = $result->fetch_assoc()) {
+        echo "<\t<tr>\n";
+        foreach ($line as $col_value) {
+            echo "\t\t<td>$col_value</td>\n";
+        }       
+        echo "\t</tr>\n";
     }
-    echo "\t</tr>\n";
+    echo "</table>\n";
+} else {
+    echo "0 results";
 }
-echo "</table>\n";
-
-echo "Number of fields: " . $result->field_count ."<br>";
-echo "Number of records: " . $result->num_rows ."<br>";
 
 //Return to HTML
 echo "<br><a href='447_project_index.html'>Back to Main Page</a>";
@@ -117,6 +151,7 @@ $CONNECTION->close();
  * HTML Closing                                         *
  * ==================================================== */ 
 -->
+</div>
 
 </body>
 </html>

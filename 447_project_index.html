@@ -39,7 +39,8 @@
         <button onclick="read_button('query2')">Lookup All Residents by Neighborhood Name</button>
         <button onclick="read_button('query3')">Lookup All Crimes by Neighborhood Name</button>
         <button onclick="read_button('query4')">Lookup Neighborhood by House Address Number</button>
-        <button onclick="read_button('query5')">Lookup House Owner by House Address Number</button>
+        <button onclick="read_button('query5')">Lookup Residents by House Address Number</button>
+        <button onclick="read_button('query6')">Lookup House Information by House Address</button>
     </div>
 
     <!-- Center Container -->
@@ -78,7 +79,7 @@
                 let input_element = document.createElement("input");
                 input_element.type = "text";
                 input_element.placeholder = PLACEHOLDER_TEXT;
-                input_element.id = "user_input";
+                input_element.name = "user_search";
 
                 //Declare Input for Key
                 let input_key = document.createElement("input");
@@ -136,6 +137,11 @@
                     break;
                 case "query5":
                     change_title("Search House Owner With House Address Number");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(build_input(KEY, "Enter Residential Address Number"));
+                    break;
+                case "query6":
+                    change_title("Search House Information With House Address Number");
                     clear_center(CENTER_CONTENT);
                     CENTER_CONTENT.appendChild(build_input(KEY, "Enter Residential Address Number"));
                     break;
