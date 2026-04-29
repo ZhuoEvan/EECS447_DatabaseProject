@@ -41,6 +41,7 @@
         <button onclick="read_button('query4')">Lookup Neighborhood by House Address Number</button>
         <button onclick="read_button('query5')">Lookup Residents by House Address Number</button>
         <button onclick="read_button('query6')">Lookup House Information by House Address</button>
+        <button onclick="read_button('query7')">Show All Neighborhood</button>
     </div>
 
     <!-- Center Container -->
@@ -68,36 +69,62 @@
             return;
         }
 
+
+        //Select All Container Function
+        function select_all(KEY) {
+            //Create HTML Form Element
+            let container = document.createElement("form");
+            container.setAttribute("action", "447_project_php.php");
+            container.setAttribute("method", "POST");
+
+            //Declare Input for Key
+            let input_key = document.createElement("input");
+            input_key.type = "hidden";
+            input_key.name = "query_key";
+            input_key.value = KEY;
+
+            //Declare Submit Button Property
+            let button_element = document.createElement("button");
+            button_element.type = "submit";
+            button_element.textContent = "Search";
+
+            //Merge Elements Together
+            container.appendChild(input_key);
+            container.appendChild(button_element);
+
+            return container;
+        }
+
         //Build Input Container Function
         function build_input(KEY, PLACEHOLDER_TEXT) {
-                //Create HTML Form Element
-                let container = document.createElement("form");
-                container.setAttribute("action", "447_project_php.php");
-                container.setAttribute("method", "POST");
-                
-                //Declare Input Property
-                let input_element = document.createElement("input");
-                input_element.type = "text";
-                input_element.placeholder = PLACEHOLDER_TEXT;
-                input_element.name = "user_search";
+            //Create HTML Form Element
+            let container = document.createElement("form");
+            container.setAttribute("action", "447_project_php.php");
+            container.setAttribute("method", "POST");
+            
+            //Declare Input Property
+            let input_element = document.createElement("input");
+            input_element.type = "text";
+            input_element.placeholder = PLACEHOLDER_TEXT;
+            input_element.name = "user_search";
 
-                //Declare Input for Key
-                let input_key = document.createElement("input");
-                input_key.type = "hidden";
-                input_key.name = "query_key";
-                input_key.value = KEY;
+            //Declare Input for Key
+            let input_key = document.createElement("input");
+            input_key.type = "hidden";
+            input_key.name = "query_key";
+            input_key.value = KEY;
 
-                //Declare Submit Button Property
-                let button_element = document.createElement("button");
-                button_element.type = "submit";
-                button_element.textContent = "Search";
+            //Declare Submit Button Property
+            let button_element = document.createElement("button");
+            button_element.type = "submit";
+            button_element.textContent = "Search";
 
-                //Merge Elements Together
-                container.appendChild(input_element);
-                container.appendChild(input_key);
-                container.appendChild(button_element);
+            //Merge Elements Together
+            container.appendChild(input_element);
+            container.appendChild(input_key);
+            container.appendChild(button_element);
 
-                return container; //SELECT * FROM NEIGHORHOOD N, HOUSE H WHERE N.AddressNum = H.AddressNum;
+            return container;
         }
 
         //Clear Center Content Function
@@ -144,6 +171,11 @@
                     change_title("Search House Information With House Address Number");
                     clear_center(CENTER_CONTENT);
                     CENTER_CONTENT.appendChild(build_input(KEY, "Enter Residential Address Number"));
+                    break;
+                case "query7":
+                    change_title("Search All Neighborhoods & Zip Code in Database");
+                    clear_center(CENTER_CONTENT);
+                    CENTER_CONTENT.appendChild(select_all(KEY));
                     break;
             }
             return;

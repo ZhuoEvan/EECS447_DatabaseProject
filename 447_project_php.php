@@ -33,7 +33,8 @@
 
 <div id=php_section 
  style=
- "padding: 25px;">
+ "padding: 25px;
+  padding-left: 250px;">
 <!-- 
 /* ===[ SECTION 03 ]=================================== *
  * PHP Connection                                       *
@@ -111,6 +112,10 @@ switch($Q_KEY) {
                   AND h.AddressNumber = r.AddressNumber;";
         echo("Showing<br>+Owner's Last Name<br>+Street<br>+Lot Size<br>+Number of Bedrooms<br>");
         break;
+    case "query7":
+        $query = "SELECT * FROM Neighborhood";
+        echo("Showing<br>+Name<br>Zip Code<br>");
+        break;
 }
 
 //Search for Query Results
@@ -136,7 +141,7 @@ if ($result->num_rows > 0) {
     }
     echo "</table>\n";
 } else {
-    echo "0 results";
+    echo "<br>0 results";
 }
 
 //Return to HTML
